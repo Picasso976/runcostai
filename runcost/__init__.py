@@ -96,12 +96,18 @@ class OpenAI:
         total = self._add_to_total(cost_usd)
         total_tokens = int(prompt_tokens) + int(completion_tokens)
 
-        print(
-            "runcost "
-            f"model={model} "
-            f"tokens={prompt_tokens}+{completion_tokens}={total_tokens} "
-            f"cost=${cost_usd:.6f} "
-            f"total=${total:.6f}"
+ try:
+            from rich.console import Console
+            from rich.text import Text
+            console = Console()
+            text = Text()
+            text.append("  RunCost ", style="bold green")
+            text.append(f"{model:<20}", style="cyan")
+            text.append(f"  ${cost_usd:.5f}", style="yellow")
+            text.append(f"  [session: ${total:.5f}]", style="dim")
+            console.print(text)
+        except ImportError:
+            print(f"  RunCost  {model:<20}  ${cost_usd:.5f}  [session: ${total:.5f}]"
         )
 
 
