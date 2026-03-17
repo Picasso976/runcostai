@@ -5,7 +5,7 @@
 
 [![License: AGPL v3](https://img.shields.io/badge/License-AGPL_v3-blue.svg)](https://www.gnu.org/licenses/agpl-3.0)
 [![PyPI version](https://img.shields.io/pypi/v/runcost)](https://pypi.org/project/runcost/)
-[![GitHub Stars](https://img.shields.io/github/stars/runcostai/runcost?style=social)](https://github.com/Picasso976/runcostai)
+[![GitHub Stars](https://img.shields.io/github/stars/runcostai/runcost?style=social)](github.com/Picasso976/runcostai)
 
 ---
 
@@ -17,7 +17,7 @@ Then you ran it for real and saw the bill.
 
 A 500-agent simulation on GPT-4o costs **$40–$80 per run**. A recursive loop that nobody catches costs **$200 before you notice**. An overnight batch job you forgot about costs **$600 by morning**.
 
-Nobody warns you. No framework stops it. You just get an email from OpenAI.
+Nobody warns you. No framework stops it.
 
 **Multi-agent AI is the future. Uncontrolled spend is the tax on building it.**
 
@@ -74,9 +74,9 @@ RunCost  //  Live Agent Cost Monitor          cost.run
 
 | Workload | Without RunCost | With RunCost | Saved |
 |---|---|---|---|
-| 1,000-agent MiroFish sim | $197.40 | **$2.10** | 98.9% |
-| 500-agent CrewAI workflow | $43.20 | **$4.80** | 88.9% |
-| AutoGen research pipeline | $18.70 | **$1.90** | 89.8% |
+| 1,000-agent MiroFish sim | $197.40 | **$2.10** | ~98% |
+| 500-agent CrewAI workflow | $43.20 | **$4.80** | ~90% |
+| AutoGen research pipeline | $18.70 | **$1.90** | ~90% |
 | Recursive loop (caught) | $200+ | **$0.00** | 100% |
 
 ---
