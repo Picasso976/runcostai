@@ -1,7 +1,7 @@
 README.md
 cli.py
 pyproject.toml
-runcost/__init__.py
+runcost/__init__.py.py
 runcost/_db.py
 runcost/_errors.py
 runcost/_pricing.py
