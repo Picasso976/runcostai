@@ -1,0 +1,23 @@
+[build-system]
+requires = ["setuptools>=61.0"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "runcost"
+version = "0.1.2"
+description = "Run a 1,000-agent simulation for $2 instead of $200. Drop-in cost intelligence for Python AI agent frameworks."
+readme = "README.md"
+license = {text = "AGPL-3.0"}
+requires-python = ">=3.8"
+keywords = ["ai", "agents", "llm", "cost", "openai", "crewai", "langgraph"]
+classifiers = [
+    "Programming Language :: Python :: 3",
+    "License :: OSI Approved :: GNU Affero General Public License v3",
+]
+
+[project.urls]
+Homepage = "https://cost.run"
+Repository = "https://github.com/Picasso976/runcostai"
+
+[project.scripts]
+runcost = "runcost.cli:main"

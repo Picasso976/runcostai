@@ -1,0 +1,3 @@
+class BudgetExceededError(RuntimeError):
+    pass
+
