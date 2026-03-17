@@ -1,6 +1,6 @@
 Metadata-Version: 2.4
 Name: runcost
-Version: 0.1.5
+Version: 0.1.6
 Summary: Run a 1,000-agent simulation for $2 instead of $200. Drop-in cost intelligence for Python AI agent frameworks.
 License: AGPL-3.0
 Project-URL: Homepage, https://cost.run

@@ -16,6 +16,8 @@ from ._pricing import estimate_tokens_for_messages, price_for_model, usd
 
 __all__ = ["OpenAI", "BudgetConfig", "BudgetExceededError"]
 
+__version__ = "0.1.5"
+
 
 @dataclass(frozen=True)
 class BudgetConfig:
@@ -26,14 +28,18 @@ class BudgetConfig:
 
 class OpenAI:
     """
-    Drop-in wrapper for `openai.OpenAI` that intercepts `chat.completions.create`
+    Drop-in wrapper for openai.OpenAI that intercepts chat.completions.create
     to estimate and log cost.
+
+    Usage:
+        from runcost import OpenAI, BudgetConfig
+        client = OpenAI(budget=BudgetConfig(hard_limit_usd=5.00))
     """
 
     def __init__(self, *args: Any, budget: Optional[BudgetConfig] = None, **kwargs: Any):
         if getattr(_openai, "OpenAI", None) is None:  # pragma: no cover
             raise ModuleNotFoundError(
-                "openai is required to use runcost.OpenAI. Install it with: pip install openai"
+                "openai is required. Install it with: pip install openai"
             )
         self._client = _openai.OpenAI(*args, **kwargs)
         self._budget = budget or BudgetConfig()
@@ -65,14 +71,23 @@ class OpenAI:
         if self._budget.hard_limit_usd is not None and projected > self._budget.hard_limit_usd:
             raise BudgetExceededError(
                 f"RunCost budget exceeded: projected ${projected:.6f} "
-                f"would exceed hard limit ${self._budget.hard_limit_usd:.6f}."
+                f"would exceed hard limit ${self._budget.hard_limit_usd:.6f}. "
+                f"Raise hard_limit_usd or start a new session."
             )
 
         if self._budget.warn_at_usd is not None and projected >= self._budget.warn_at_usd:
-            print(
-                f"runcost warning: projected total ${projected:.6f} "
-                f"has reached warn_at ${self._budget.warn_at_usd:.6f}"
-            )
+            try:
+                from rich.console import Console
+                Console().print(
+                    f"[bold yellow]  RunCost WARNING[/] projected total "
+                    f"[yellow]${projected:.5f}[/] approaching limit "
+                    f"[yellow]${self._budget.warn_at_usd:.5f}[/]"
+                )
+            except ImportError:
+                print(
+                    f"  RunCost WARNING: projected ${projected:.5f} "
+                    f"approaching limit ${self._budget.warn_at_usd:.5f}"
+                )
 
     def _post_call_log_and_print(
         self,
@@ -96,19 +111,21 @@ class OpenAI:
         total = self._add_to_total(cost_usd)
         total_tokens = int(prompt_tokens) + int(completion_tokens)
 
- try:
+        try:
             from rich.console import Console
             from rich.text import Text
             console = Console()
             text = Text()
             text.append("  RunCost ", style="bold green")
-            text.append(f"{model:<20}", style="cyan")
+            text.append(f"{model:<28}", style="cyan")
             text.append(f"  ${cost_usd:.5f}", style="yellow")
             text.append(f"  [session: ${total:.5f}]", style="dim")
             console.print(text)
         except ImportError:
-            print(f"  RunCost  {model:<20}  ${cost_usd:.5f}  [session: ${total:.5f}]"
-        )
+            print(
+                f"  RunCost  {model:<28}  ${cost_usd:.5f}  "
+                f"[session: ${total:.5f}]"
+            )
 
 
 class _ChatProxy:
@@ -137,7 +154,11 @@ class _ChatCompletionsProxy:
         max_tokens = kwargs.get("max_tokens")
 
         est_prompt = estimate_tokens_for_messages(messages)
-        est_completion = int(max_tokens) if isinstance(max_tokens, int) and max_tokens > 0 else 0
+        est_completion = (
+            int(max_tokens)
+            if isinstance(max_tokens, int) and max_tokens > 0
+            else 0
+        )
 
         in_rate, out_rate = price_for_model(model)
         est_cost = usd(est_prompt, est_completion, in_rate, out_rate)

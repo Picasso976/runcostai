@@ -4,7 +4,7 @@ build-backend = "setuptools.build_meta"
 
 [project]
 name = "runcost"
-version = "0.1.5"
+version = "0.1.6"
 description = "Run a 1,000-agent simulation for $2 instead of $200. Drop-in cost intelligence for Python AI agent frameworks."
 readme = "README.md"
 license = {text = "AGPL-3.0"}
