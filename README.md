@@ -74,9 +74,9 @@ RunCost  //  Live Agent Cost Monitor          cost.run
 
 | Workload | Without RunCost | With RunCost | Saved |
 |---|---|---|---|
-| 1,000-agent MiroFish sim | $197.40 | **$2.10** | ~98% |
-| 500-agent CrewAI workflow | $43.20 | **$4.80** | ~90% |
-| AutoGen research pipeline | $18.70 | **$1.90** | ~90% |
+| 1,000-agent simulation | ~$180-$200 | **~$2-$4** | ~98% |
+| 500-agent CrewAI workflow | ~$40-$80 | **~$4-$8** | ~90% |
+| AutoGen research pipeline | ~$15-$20 | **~$1-$2** | ~90% |
 | Recursive loop (caught) | $200+ | **$0.00** | 100% |
 
 ---
