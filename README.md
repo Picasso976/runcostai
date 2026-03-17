@@ -138,7 +138,6 @@ runcost dashboard
 
 Opens a live terminal view showing real-time spend, savings, active agents, blocked loops, and full call history. Dark mode. No browser required.
 
-A web dashboard is coming in v0.3. [Join the waitlist →](https://cost.run)
 
 ---
 
@@ -149,8 +148,6 @@ Because every developer deserves to see exactly what their agents are spending �
 The core engine is **AGPL-3.0**. Run it yourself, audit it, fork it, build on it.
 
 **RunCost Pro** (coming soon): team dashboards · multi-project tracking · SSO · compliance exports · Slack/Discord alerts · SLA support
-
-[Join the Pro waitlist at cost.run →](https://cost.run)
 
 ---
 
@@ -175,21 +172,7 @@ The core engine is **AGPL-3.0**. Run it yourself, audit it, fork it, build on it
 
 ---
 
-## Contributing
-
-PRs welcome. See [CONTRIBUTING.md](CONTRIBUTING.md).
-
 If RunCost saved you money, a ⭐ on GitHub costs nothing and means everything.
-
----
-
-## The Story
-
-I was building AI agent simulations and got hit with a $47 API bill for a single test run that didn't even produce useful output. A recursive loop had quietly fired 200 API calls before I noticed.
-
-There was no tool that warned me. No framework stopped it. Just a bill.
-
-RunCost is that warning. Built in public at [cost.run](https://cost.run) — follow the journey at [@RunCostAI](https://x.com/RunCostAI) on X.
 
 ---
 
@@ -198,8 +181,6 @@ RunCost is that warning. Built in public at [cost.run](https://cost.run) — fol
 **AGPL-3.0** — free for individuals and open source projects.
 
 Commercial license available for enterprise deployments.
-Contact: [hello@cost.run](mailto:hello@cost.run)
 
 ---
 
-**[cost.run](https://cost.run)** · **[@RunCostAI](https://x.com/RunCostAI)** · **[pip install runcost](https://pypi.org/project/runcost)**
