@@ -110,6 +110,9 @@ main{max-width:1140px;margin:0 auto;padding:32px 24px;}
 .provider-dot{width:6px;height:6px;border-radius:50%;}
 .provider.ready .provider-dot{background:var(--accent);}
 .provider.soon .provider-dot{background:var(--text-3);}
+.provider-tab{padding:7px 14px;border-radius:8px;border:1px solid var(--border);background:var(--surface);color:var(--text-2);font-size:11px;font-weight:600;cursor:pointer;transition:all .15s;font-family:'Inter',sans-serif;}
+.provider-tab:hover{background:var(--surface-2);color:var(--text-1);}
+.provider-tab.active{background:var(--accent-dim);color:var(--accent);border-color:rgba(34,197,94,0.3);}
 .steps{display:grid;grid-template-columns:repeat(4,1fr);gap:12px;}
 .step{background:var(--base);border:1px solid var(--border);border-radius:12px;padding:16px;}
 .step-num{font-size:10px;font-weight:700;color:var(--accent);letter-spacing:1px;text-transform:uppercase;margin-bottom:10px;}
@@ -260,16 +263,100 @@ footer a{color:var(--accent);text-decoration:none;}
     </div>
     <div id="setup-body">
 
-    <!-- Supported providers -->
-    <div style="margin-bottom:16px;">
-      <div style="font-size:10px;font-weight:600;letter-spacing:1.5px;text-transform:uppercase;color:var(--text-3);margin-bottom:10px;">Works with</div>
-      <div class="providers">
-        <div class="provider ready"><div class="provider-dot"></div>OpenAI</div>
-        <div class="provider ready"><div class="provider-dot"></div>DeepSeek</div>
-        <div class="provider ready"><div class="provider-dot"></div>Grok / xAI</div>
-        <div class="provider ready"><div class="provider-dot"></div>Any OpenAI-compatible API</div>
-        <div class="provider soon"><div class="provider-dot"></div>Claude — coming v0.2</div>
-        <div class="provider soon"><div class="provider-dot"></div>Gemini — coming v0.2</div>
+    <!-- Provider tabs -->
+    <div style="margin-bottom:20px;">
+      <div style="font-size:10px;font-weight:600;letter-spacing:1.5px;text-transform:uppercase;color:var(--text-3);margin-bottom:10px;">Select your provider</div>
+      <div style="display:flex;flex-wrap:wrap;gap:8px;margin-bottom:20px;">
+        <button class="provider-tab active" onclick="showProvider('openai')" id="tab-openai">OpenAI</button>
+        <button class="provider-tab" onclick="showProvider('deepseek')" id="tab-deepseek">DeepSeek</button>
+        <button class="provider-tab" onclick="showProvider('grok')" id="tab-grok">Grok / xAI</button>
+        <button class="provider-tab" onclick="showProvider('compat')" id="tab-compat">Any OpenAI-compatible</button>
+        <button class="provider-tab" onclick="showProvider('claude')" id="tab-claude">Claude (Anthropic)</button>
+        <button class="provider-tab" onclick="showProvider('gemini')" id="tab-gemini">Gemini (Google)</button>
+      </div>
+
+      <!-- OpenAI -->
+      <div class="provider-content" id="provider-openai">
+        <div class="steps">
+          <div class="step"><div class="step-num">Step 1</div><div class="step-title">Install</div>
+            <div class="step-code">pip install runcost</div></div>
+          <div class="step"><div class="step-num">Step 2</div><div class="step-title">Swap one import</div>
+            <div class="step-code"><span class="dim"># before</span><br><span class="kw">from</span> openai <span class="kw">import</span> OpenAI<br><br><span class="dim"># after</span><br><span class="kw">from</span> runcost <span class="kw">import</span> OpenAI</div></div>
+          <div class="step"><div class="step-num">Step 3</div><div class="step-title">Set a budget</div>
+            <div class="step-code">client = OpenAI(<br>&nbsp;&nbsp;budget=BudgetConfig(<br>&nbsp;&nbsp;&nbsp;&nbsp;hard_limit_usd=<span class="str">5.00</span>,<br>&nbsp;&nbsp;&nbsp;&nbsp;auto_route=<span class="str">True</span>,<br>&nbsp;&nbsp;&nbsp;&nbsp;block_loops=<span class="str">True</span><br>&nbsp;&nbsp;)<br>)</div></div>
+          <div class="step"><div class="step-num">Step 4</div><div class="step-title">Run your agents</div>
+            <div class="step-code">client.chat.completions.create(<br>&nbsp;&nbsp;model=<span class="str">"gpt-4o"</span>,<br>&nbsp;&nbsp;messages=[...]<br>)</div></div>
+        </div>
+      </div>
+
+      <!-- DeepSeek -->
+      <div class="provider-content" id="provider-deepseek" style="display:none;">
+        <div class="steps">
+          <div class="step"><div class="step-num">Step 1</div><div class="step-title">Install</div>
+            <div class="step-code">pip install runcost</div></div>
+          <div class="step"><div class="step-num">Step 2</div><div class="step-title">Import RunCost</div>
+            <div class="step-code"><span class="kw">from</span> runcost <span class="kw">import</span> OpenAI<br><span class="kw">from</span> runcost <span class="kw">import</span> BudgetConfig</div></div>
+          <div class="step"><div class="step-num">Step 3</div><div class="step-title">Set DeepSeek endpoint</div>
+            <div class="step-code">client = OpenAI(<br>&nbsp;&nbsp;api_key=<span class="str">"your-deepseek-key"</span>,<br>&nbsp;&nbsp;base_url=<span class="str">"https://api.deepseek.com"</span>,<br>&nbsp;&nbsp;budget=BudgetConfig(<br>&nbsp;&nbsp;&nbsp;&nbsp;hard_limit_usd=<span class="str">5.00</span><br>&nbsp;&nbsp;)<br>)</div></div>
+          <div class="step"><div class="step-num">Step 4</div><div class="step-title">Run your agents</div>
+            <div class="step-code">client.chat.completions.create(<br>&nbsp;&nbsp;model=<span class="str">"deepseek-chat"</span>,<br>&nbsp;&nbsp;messages=[...]<br>)</div></div>
+        </div>
+      </div>
+
+      <!-- Grok -->
+      <div class="provider-content" id="provider-grok" style="display:none;">
+        <div class="steps">
+          <div class="step"><div class="step-num">Step 1</div><div class="step-title">Install</div>
+            <div class="step-code">pip install runcost</div></div>
+          <div class="step"><div class="step-num">Step 2</div><div class="step-title">Import RunCost</div>
+            <div class="step-code"><span class="kw">from</span> runcost <span class="kw">import</span> OpenAI<br><span class="kw">from</span> runcost <span class="kw">import</span> BudgetConfig</div></div>
+          <div class="step"><div class="step-num">Step 3</div><div class="step-title">Set Grok endpoint</div>
+            <div class="step-code">client = OpenAI(<br>&nbsp;&nbsp;api_key=<span class="str">"your-grok-key"</span>,<br>&nbsp;&nbsp;base_url=<span class="str">"https://api.x.ai/v1"</span>,<br>&nbsp;&nbsp;budget=BudgetConfig(<br>&nbsp;&nbsp;&nbsp;&nbsp;hard_limit_usd=<span class="str">5.00</span><br>&nbsp;&nbsp;)<br>)</div></div>
+          <div class="step"><div class="step-num">Step 4</div><div class="step-title">Run your agents</div>
+            <div class="step-code">client.chat.completions.create(<br>&nbsp;&nbsp;model=<span class="str">"grok-3"</span>,<br>&nbsp;&nbsp;messages=[...]<br>)</div></div>
+        </div>
+      </div>
+
+      <!-- Any compatible -->
+      <div class="provider-content" id="provider-compat" style="display:none;">
+        <div class="steps">
+          <div class="step"><div class="step-num">Step 1</div><div class="step-title">Install</div>
+            <div class="step-code">pip install runcost</div></div>
+          <div class="step"><div class="step-num">Step 2</div><div class="step-title">Import RunCost</div>
+            <div class="step-code"><span class="kw">from</span> runcost <span class="kw">import</span> OpenAI<br><span class="kw">from</span> runcost <span class="kw">import</span> BudgetConfig</div></div>
+          <div class="step"><div class="step-num">Step 3</div><div class="step-title">Set your endpoint</div>
+            <div class="step-code">client = OpenAI(<br>&nbsp;&nbsp;api_key=<span class="str">"your-key"</span>,<br>&nbsp;&nbsp;base_url=<span class="str">"https://your-api/v1"</span>,<br>&nbsp;&nbsp;budget=BudgetConfig(<br>&nbsp;&nbsp;&nbsp;&nbsp;hard_limit_usd=<span class="str">5.00</span><br>&nbsp;&nbsp;)<br>)</div></div>
+          <div class="step"><div class="step-num">Step 4</div><div class="step-title">Run your agents</div>
+            <div class="step-code">client.chat.completions.create(<br>&nbsp;&nbsp;model=<span class="str">"your-model"</span>,<br>&nbsp;&nbsp;messages=[...]<br>)</div></div>
+        </div>
+      </div>
+
+      <!-- Claude -->
+      <div class="provider-content" id="provider-claude" style="display:none;">
+        <div class="steps">
+          <div class="step"><div class="step-num">Step 1</div><div class="step-title">Install</div>
+            <div class="step-code">pip install runcost anthropic</div></div>
+          <div class="step"><div class="step-num">Step 2</div><div class="step-title">Import RunCost Claude</div>
+            <div class="step-code"><span class="kw">from</span> runcost.claude <span class="kw">import</span> Anthropic<br><span class="kw">from</span> runcost <span class="kw">import</span> BudgetConfig</div></div>
+          <div class="step"><div class="step-num">Step 3</div><div class="step-title">Create client</div>
+            <div class="step-code">client = Anthropic(<br>&nbsp;&nbsp;api_key=<span class="str">"your-anthropic-key"</span>,<br>&nbsp;&nbsp;budget=BudgetConfig(<br>&nbsp;&nbsp;&nbsp;&nbsp;hard_limit_usd=<span class="str">5.00</span><br>&nbsp;&nbsp;)<br>)</div></div>
+          <div class="step"><div class="step-num">Step 4</div><div class="step-title">Run your agents</div>
+            <div class="step-code">client.messages.create(<br>&nbsp;&nbsp;model=<span class="str">"claude-sonnet-4-5-20251022"</span>,<br>&nbsp;&nbsp;max_tokens=<span class="str">1024</span>,<br>&nbsp;&nbsp;messages=[{<span class="str">"role"</span>:<span class="str">"user"</span>,<br>&nbsp;&nbsp;&nbsp;&nbsp;<span class="str">"content"</span>:<span class="str">"Hello"</span>}]<br>)</div></div>
+        </div>
+      </div>
+
+      <!-- Gemini -->
+      <div class="provider-content" id="provider-gemini" style="display:none;">
+        <div class="steps">
+          <div class="step"><div class="step-num">Step 1</div><div class="step-title">Install</div>
+            <div class="step-code">pip install runcost google-generativeai</div></div>
+          <div class="step"><div class="step-num">Step 2</div><div class="step-title">Import RunCost Gemini</div>
+            <div class="step-code"><span class="kw">from</span> runcost.gemini <span class="kw">import</span> GenerativeModel, configure<br><span class="kw">from</span> runcost <span class="kw">import</span> BudgetConfig</div></div>
+          <div class="step"><div class="step-num">Step 3</div><div class="step-title">Configure API key</div>
+            <div class="step-code">configure(api_key=<span class="str">"your-gemini-key"</span>)</div></div>
+          <div class="step"><div class="step-num">Step 4</div><div class="step-title">Run your agents</div>
+            <div class="step-code">model = GenerativeModel(<br>&nbsp;&nbsp;<span class="str">"gemini-1.5-pro"</span>,<br>&nbsp;&nbsp;budget=BudgetConfig(<br>&nbsp;&nbsp;&nbsp;&nbsp;hard_limit_usd=<span class="str">5.00</span><br>&nbsp;&nbsp;)<br>)<br>resp = model.generate_content(<span class="str">"Hello"</span>)</div></div>
+        </div>
       </div>
     </div>
 
@@ -478,6 +565,18 @@ if(setupState==='closed'){
   const label=document.getElementById('collapse-label');
   if(body){body.style.display='none';chevron.style.transform='rotate(-90deg)';label.textContent='Show';}
 }
+
+function showProvider(name) {
+  document.querySelectorAll('.provider-content').forEach(el => el.style.display = 'none');
+  document.querySelectorAll('.provider-tab').forEach(el => el.classList.remove('active'));
+  const el = document.getElementById('provider-' + name);
+  if (el) el.style.display = '';
+  const tab = document.getElementById('tab-' + name);
+  if (tab) tab.classList.add('active');
+  localStorage.setItem('rc-provider', name);
+}
+const savedProvider = localStorage.getItem('rc-provider');
+if (savedProvider) showProvider(savedProvider);
 
 function calculate(){
   const model=document.getElementById('calc-model').value;

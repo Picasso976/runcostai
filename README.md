@@ -4,7 +4,7 @@
 > Drop-in cost intelligence for Python AI agent frameworks.
 
 [![License: AGPL v3](https://img.shields.io/badge/License-AGPL_v3-blue.svg)](https://www.gnu.org/licenses/agpl-3.0)
-[![PyPI version](https://img.shields.io/pypi/v/runcost?v=0.3.2)](https://pypi.org/project/runcost/)
+[![PyPI version](https://img.shields.io/pypi/v/runcost?v=0.4)](https://pypi.org/project/runcost/)
 [![GitHub Stars](https://img.shields.io/github/stars/Picasso976/runcostai?style=social)](https://github.com/Picasso976/runcostai)
 
 ---
@@ -154,20 +154,35 @@ The core engine is **AGPL-3.0**. Run it yourself, audit it, fork it, build on it
 ## Roadmap
 
 ✅ OpenAI SDK wrapper
+
 ✅ Real-time cost tracking per call
+
 ✅ Hard budget limits with BudgetExceededError
+
 ✅ SQLite call logging
+
 ✅ Terminal dashboard (runcost dashboard)
+
 ✅ Web dashboard (runcost server)
+
 ✅ Pre-flight cost calculator
+
 ✅ DeepSeek support
+
 ✅ Grok / xAI support
+
 ✅ Auto-routing (automatic cheap model selection)
+
 ✅ Recursive loop detection
+
 ✅ Slack / Discord spend alerts
-🔜 Claude (Anthropic SDK) support
-🔜 Gemini (Google SDK) support
+
+✅ Claude (Anthropic SDK) support
+
+✅ Gemini (Google SDK) support
+
 🔜 CrewAI native plugin
+
 🔜 LangGraph native plugin
 
 🔜 AgentLedger — audit trail for every agent action

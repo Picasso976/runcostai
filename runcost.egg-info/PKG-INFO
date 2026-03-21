@@ -1,6 +1,6 @@
 Metadata-Version: 2.4
 Name: runcost
-Version: 0.3.2
+Version: 0.4
 Summary: Drop-in cost intelligence for Python AI agent frameworks.
 License-Expression: AGPL-3.0-only
 Project-URL: Homepage, https://cost.run
