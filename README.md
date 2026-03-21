@@ -177,9 +177,9 @@ The core engine is **AGPL-3.0**. Run it yourself, audit it, fork it, build on it
 
 ✅ Slack / Discord spend alerts
 
-🔜 Claude (Anthropic SDK) support
+✅ Claude (Anthropic SDK) support
 
-🔜 Gemini (Google SDK) support
+✅ Gemini (Google SDK) support
 
 🔜 CrewAI native plugin
 
