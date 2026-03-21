@@ -4,7 +4,7 @@ build-backend = "setuptools.build_meta"
 
 [project]
 name = "runcost"
-version = "0.2.3"
+version = "0.3"
 description = "Drop-in cost intelligence for Python AI agent frameworks."
 readme = "README.md"
 license = "AGPL-3.0-only"
