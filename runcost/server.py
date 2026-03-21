@@ -281,7 +281,7 @@ footer a{color:var(--accent);text-decoration:none;}
           <div class="step"><div class="step-num">Step 1</div><div class="step-title">Install</div>
             <div class="step-code">pip install runcost</div></div>
           <div class="step"><div class="step-num">Step 2</div><div class="step-title">Swap one import</div>
-            <div class="step-code"><span class="dim"># before</span><br><span class="kw">from</span> openai <span class="kw">import</span> OpenAI<br><br><span class="dim"># after</span><br><span class="kw">from</span> runcost <span class="kw">import</span> OpenAI</div></div>
+            <div class="step-code"><span class="dim"># before</span><br><span class="kw">from</span> openai <span class="kw">import</span> OpenAI<br><br><span class="dim"># after</span><br><span class="kw">from</span> runcost <span class="kw">import</span> OpenAI, BudgetConfig</div></div>
           <div class="step"><div class="step-num">Step 3</div><div class="step-title">Set a budget</div>
             <div class="step-code">client = OpenAI(<br>&nbsp;&nbsp;budget=BudgetConfig(<br>&nbsp;&nbsp;&nbsp;&nbsp;hard_limit_usd=<span class="str">5.00</span>,<br>&nbsp;&nbsp;&nbsp;&nbsp;auto_route=<span class="str">True</span>,<br>&nbsp;&nbsp;&nbsp;&nbsp;block_loops=<span class="str">True</span><br>&nbsp;&nbsp;)<br>)</div></div>
           <div class="step"><div class="step-num">Step 4</div><div class="step-title">Run your agents</div>
@@ -360,61 +360,10 @@ footer a{color:var(--accent);text-decoration:none;}
       </div>
     </div>
 
-    <!-- Steps -->
-    <div class="steps">
-      <div class="step">
-        <div class="step-num">Step 1</div>
-        <div class="step-title">Install</div>
-        <div class="step-desc">One command. No dependencies beyond Python.</div>
-        <div class="step-code">pip install runcost</div>
-      </div>
-      <div class="step">
-        <div class="step-num">Step 2</div>
-        <div class="step-title">Swap one import</div>
-        <div class="step-desc">Replace your OpenAI import. Nothing else changes.</div>
-        <div class="step-code">
-          <span class="dim"># before</span><br>
-          <span class="kw">from</span> openai <span class="kw">import</span> OpenAI<br><br>
-          <span class="dim"># after</span><br>
-          <span class="kw">from</span> runcost <span class="kw">import</span> OpenAI
-        </div>
-      </div>
-      <div class="step">
-        <div class="step-num">Step 3</div>
-        <div class="step-title">Set a budget (optional)</div>
-        <div class="step-desc">Hard limit stops all calls if exceeded. Warn threshold alerts you early.</div>
-        <div class="step-code">
-          client = OpenAI(<br>
-          &nbsp;&nbsp;budget=BudgetConfig(<br>
-          &nbsp;&nbsp;&nbsp;&nbsp;hard_limit_usd=<span class="str">5.00</span>,<br>
-          &nbsp;&nbsp;&nbsp;&nbsp;warn_at_usd=<span class="str">2.00</span><br>
-          &nbsp;&nbsp;)<br>
-          )
-        </div>
-      </div>
-      <div class="step">
-        <div class="step-num">Step 4</div>
-        <div class="step-title">Run your agents</div>
-        <div class="step-desc">Use your code exactly as before. Costs appear on this dashboard automatically.</div>
-        <div class="step-code">
-          <span class="dim"># For DeepSeek:</span><br>
-          client = OpenAI(<br>
-          &nbsp;&nbsp;api_key=<span class="str">"your-key"</span>,<br>
-          &nbsp;&nbsp;base_url=<span class="str">"https://api.deepseek.com"</span><br>
-          )<br><br>
-          <span class="dim"># For Grok:</span><br>
-          client = OpenAI(<br>
-          &nbsp;&nbsp;api_key=<span class="str">"your-key"</span>,<br>
-          &nbsp;&nbsp;base_url=<span class="str">"https://api.x.ai/v1"</span><br>
-          )
-        </div>
-      </div>
-    </div>
-
-    <div class="compat-note">
+<div class="compat-note">
       Your API key is never stored by RunCost. It passes through directly to your provider, the same way it always has.
       RunCost only reads token counts from the response to calculate cost.
-      &nbsp;·&nbsp; Claude and Gemini support coming in v0.2 (different SDK pattern).
+      &nbsp;·&nbsp; Claude requires: pip install anthropic &nbsp;·&nbsp; Gemini requires: pip install google-generativeai
     </div>
     </div><!-- end setup-body -->
   </div>
