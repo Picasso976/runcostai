@@ -154,27 +154,43 @@ The core engine is **AGPL-3.0**. Run it yourself, audit it, fork it, build on it
 ## Roadmap
 
 ✅ OpenAI SDK wrapper
+
 ✅ Real-time cost tracking per call
+
 ✅ Hard budget limits with BudgetExceededError
+
 ✅ SQLite call logging
+
 ✅ Terminal dashboard (runcost dashboard)
+
 ✅ Web dashboard (runcost server)
+
 ✅ Pre-flight cost calculator
+
 ✅ DeepSeek support
+
 ✅ Grok / xAI support
+
 ✅ Auto-routing (automatic cheap model selection)
+
 ✅ Recursive loop detection
+
 ✅ Slack / Discord spend alerts
+
 🔜 Claude (Anthropic SDK) support
+
 🔜 Gemini (Google SDK) support
+
 🔜 CrewAI native plugin
+
 🔜 LangGraph native plugin
+
 🔜 AgentLedger — audit trail for every agent action
+
 
 ---
 
 ## If RunCost saved you money, a ⭐ on GitHub costs nothing and means everything.
-
 ---
 
 ## License
