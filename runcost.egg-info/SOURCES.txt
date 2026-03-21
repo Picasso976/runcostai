@@ -11,5 +11,6 @@ runcost.egg-info/PKG-INFO
 runcost.egg-info/SOURCES.txt
 runcost.egg-info/dependency_links.txt
 runcost.egg-info/entry_points.txt
+runcost.egg-info/requires.txt
 runcost.egg-info/top_level.txt
 tests/test_basic.py

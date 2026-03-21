@@ -1,15 +1,18 @@
 Metadata-Version: 2.4
 Name: runcost
-Version: 0.2.1
-Summary: Run a 1,000-agent simulation for $2 instead of $200. Drop-in cost intelligence for Python AI agent frameworks.
-License: AGPL-3.0
+Version: 0.2.2
+Summary: Drop-in cost intelligence for Python AI agent frameworks.
+License-Expression: AGPL-3.0-only
 Project-URL: Homepage, https://cost.run
 Project-URL: Repository, https://github.com/Picasso976/runcostai
 Keywords: ai,agents,llm,cost,openai,crewai,langgraph
-Classifier: Programming Language :: Python :: 3
-Classifier: License :: OSI Approved :: GNU Affero General Public License v3
 Requires-Python: >=3.8
 Description-Content-Type: text/markdown
+Requires-Dist: openai>=1.0.0
+Requires-Dist: rich>=13.0.0
+Requires-Dist: click>=8.0.0
+Provides-Extra: dev
+Requires-Dist: pytest>=7.0; extra == "dev"
 
 # RunCost 💸
 
