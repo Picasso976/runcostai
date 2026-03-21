@@ -1,6 +1,6 @@
 Metadata-Version: 2.4
 Name: runcost
-Version: 0.3
+Version: 0.3.1
 Summary: Drop-in cost intelligence for Python AI agent frameworks.
 License-Expression: AGPL-3.0-only
 Project-URL: Homepage, https://cost.run
@@ -14,232 +14,381 @@ Requires-Dist: click>=8.0.0
 Provides-Extra: dev
 Requires-Dist: pytest>=7.0; extra == "dev"
 
-# RunCost 💸
+# \# RunCost 💸
 
-> **Run a 1,000-agent simulation for $2 instead of $200.**
-> Drop-in cost intelligence for Python AI agent frameworks.
+# 
 
-[![License: AGPL v3](https://img.shields.io/badge/License-AGPL_v3-blue.svg)](https://www.gnu.org/licenses/agpl-3.0)
-[![PyPI version](https://img.shields.io/pypi/v/runcost)](https://pypi.org/project/runcost/)
-[![GitHub Stars](https://img.shields.io/github/stars/Picasso976/runcostai?style=social)](https://github.com/Picasso976/runcostai)
-[![Twitter Follow](https://img.shields.io/twitter/follow/RunCostAI?style=social)](https://x.com/RunCostAI)
+# > \*\*Run a 1,000-agent simulation for $2 instead of $200.\*\*
 
----
+# > Drop-in cost intelligence for Python AI agent frameworks.
 
-## The Problem
+# 
 
-You are building with CrewAI, LangGraph, AutoGen, MiroFish, or the OpenAI Agents SDK. The framework is powerful. The demos are impressive.
+# \[!\[License: AGPL v3](https://img.shields.io/badge/License-AGPL\_v3-blue.svg)](https://www.gnu.org/licenses/agpl-3.0)
 
-Then you run it at scale and see the bill.
+# \[!\[PyPI version](https://img.shields.io/pypi/v/runcost?v=0.3)](https://pypi.org/project/runcost/)
 
-A 500-agent simulation costs **$40-$80 per run**. A recursive loop that nobody catches costs **$200 before you notice**. An overnight batch job costs **$600 by morning**.
+# \[!\[GitHub Stars](https://img.shields.io/github/stars/Picasso976/runcostai?style=social)](https://github.com/Picasso976/runcostai)
 
-None of these frameworks warn you. None of them stop it. You find out when you get an email from your API provider.
+# 
 
-**Every major agent framework has the same blind spot: zero native cost controls.**
+# \---
 
-RunCost is that missing layer.
+# 
 
----
+# \## The Problem
 
-## The Fix: One Line
+# 
 
-```python
-# Before RunCost
-from openai import OpenAI
-client = OpenAI()
+# You built a multi-agent system. It works beautifully in testing.
 
-# After RunCost -- nothing else changes
-from runcost import OpenAI
-client = OpenAI()
-```
+# 
 
-Drop it in. That is it. Your existing code works exactly as before.
+# Then you ran it for real and saw the bill.
 
-Works with any OpenAI-compatible framework: CrewAI, LangGraph, AutoGen, MiroFish, LangChain, DeepSeek, Grok.
+# 
 
----
+# A 500-agent simulation on GPT-4o costs \*\*$40–$80 per run\*\*. A recursive loop that nobody catches costs \*\*$200 before you notice\*\*. An overnight batch job you forgot about costs \*\*$600 by morning\*\*.
 
-## What Happens When You Run It
+# 
 
-```
-RunCost  //  Live Agent Cost Monitor          cost.run
-------------------------------------------------------
-  OK  researcher_01  ->  llama-3-8b   $0.001    11ms
-  OK  analyst_04     ->  gpt-4o       $0.047   780ms
-  OK  writer_02      ->  mistral-7b   $0.002    43ms
-  XX  crawler_07     ->  BLOCKED      $0.000  loop@13
-  OK  researcher_14  ->  llama-3-8b   $0.001     9ms
-------------------------------------------------------
-  Spent:    $1.82 / $5.00   [====      ]  36%
-  Saved:   $41.30            Efficiency: 95.7%
-  Blocked:  3 loops          Calls:       847
-------------------------------------------------------
-```
+# Nobody warns you. No framework stops it.
 
----
+# 
 
-## Install
+# \*\*Multi-agent AI is the future. Uncontrolled spend is the tax on building it.\*\*
 
-```bash
-pip install runcost
-```
+# 
 
-**Supported providers:** OpenAI · DeepSeek · Grok / xAI · Any OpenAI-compatible API
+# \---
 
-**Coming in v0.3:** Claude (Anthropic SDK) · Gemini (Google SDK)
+# 
 
----
+# \## The Fix: One Line
 
-## Quick Start
+# 
 
-```python
-from runcost import OpenAI, BudgetConfig
+# ```python
 
-client = OpenAI(budget=BudgetConfig(
-    hard_limit_usd=5.00,     # Hard stop -- never exceed this per run
-    warn_at_usd=2.00,        # Alert when approaching limit
-    log_to_db=True           # Save full history to runcost.db
-))
+# \# Before RunCost
 
-# Use exactly as normal -- RunCost works silently underneath
-response = client.chat.completions.create(
-    model="gpt-4o",
-    messages=[{"role": "user", "content": "Analyze these 500 documents"}]
-)
-```
+# from openai import OpenAI
 
-**For DeepSeek:**
-```python
-client = OpenAI(
-    api_key="your-deepseek-key",
-    base_url="https://api.deepseek.com",
-    budget=BudgetConfig(hard_limit_usd=5.00)
-)
-```
-
-**For Grok:**
-```python
-client = OpenAI(
-    api_key="your-grok-key",
-    base_url="https://api.x.ai/v1",
-    budget=BudgetConfig(hard_limit_usd=5.00)
-)
-```
+# client = OpenAI()
 
----
+# 
 
-## Web Dashboard
+# \# After RunCost — nothing else changes
 
-Launch a live web dashboard in your browser:
+# from runcost import OpenAI
 
-```bash
-runcost server
-```
+# client = OpenAI()
 
-Opens `http://localhost:8080` automatically. Shows:
-- Real-time spend and API call tracking
-- Pre-flight cost calculator — know your bill before you run
-- Spend by model with visual breakdown
-- Hourly spend chart
-- Getting started guide built in
-- Dark / light mode
+# ```
 
----
+# 
 
-## Terminal Dashboard
+# Drop it in. That's it. Your existing code works exactly as before — except now every API call is intercepted, measured, and intelligently routed before it costs you money.
 
-```bash
-runcost dashboard
-runcost dashboard --live   # auto-refreshes every 2 seconds
-```
+# 
 
----
+# \---
 
-## Spend Summary
+# 
 
-```bash
-runcost summary
-```
+# \## What Happens When You Run It
 
----
+# 
 
-## The Numbers
+# ```
 
-> Same simulation. Same output quality. Up to 98% cheaper.
+# RunCost  //  Live Agent Cost Monitor          cost.run
 
-| Workload | Without RunCost | With RunCost | Saved |
-|---|---|---|---|
-| 1,000-agent simulation (GPT-4o) | ~$180-$200 | **~$2-$4** | ~98% |
-| 500-agent CrewAI workflow | ~$40-$80 | **~$4-$8** | ~90% |
-| AutoGen research pipeline | ~$15-$20 | **~$1-$2** | ~90% |
-| Recursive loop (caught) | $200+ | **$0.00** | 100% |
+# ──────────────────────────────────────────────────────
 
-> Savings based on routing simple tasks to Groq Llama-3 (~$0.05/1M tokens) vs GPT-4o ($2.50/1M tokens).
+# &#x20; ✓  researcher\_01  →  llama-3-8b   $0.001    11ms
 
----
+# &#x20; ✓  analyst\_04     →  gpt-4o       $0.047   780ms
 
-## Current Pricing (March 2026)
+# &#x20; ✓  writer\_02      →  mistral-7b   $0.002    43ms
 
-| Model | Input /1M | Output /1M |
-|---|---|---|
-| GPT-4o | $2.50 | $10.00 |
-| GPT-4.1 | $2.00 | $8.00 |
-| GPT-5 | $1.25 | $10.00 |
-| Claude Sonnet 4.6 | $3.00 | $15.00 |
-| DeepSeek Chat | $0.27 | $1.10 |
-| Llama-3 8B (Groq) | $0.05 | $0.08 |
-| Mistral 7B | $0.25 | $0.25 |
+# &#x20; ✗  crawler\_07     →  BLOCKED      $0.000  loop@13
 
----
+# &#x20; ✓  researcher\_14  →  llama-3-8b   $0.001     9ms
 
-## Roadmap
+# ──────────────────────────────────────────────────────
 
-| Status | Feature |
-|--------|---------|
-| ✅ | OpenAI SDK wrapper |
-| ✅ | Real-time cost tracking |
-| ✅ | Hard budget limits |
-| ✅ | SQLite call logging |
-| ✅ | Terminal dashboard |
-| ✅ | Web dashboard (runcost server) |
-| ✅ | Pre-flight cost calculator |
-| ✅ | DeepSeek support |
-| ✅ | Grok / xAI support |
-| 🔜 | Auto-routing (cheap model selection) |
-| 🔜 | Recursive loop detection |
-| 🔜 | Claude (Anthropic SDK) support |
-| 🔜 | Gemini (Google SDK) support |
-| 🔜 | CrewAI native plugin |
-| 🔜 | LangGraph native plugin |
-| 🔜 | Slack / Discord spend alerts |
-| 🔜 | AgentLedger -- audit trail for every agent action |
+# &#x20; Spent:    $1.82 / $5.00   \[====      ]  36%
 
----
+# &#x20; Saved:   $41.30            Efficiency: 95.7%
 
-## Why Open Source?
+# &#x20; Blocked:  3 loops          Calls:       847
 
-Because every developer deserves to see exactly what their agents are spending -- before it is too late.
+# ──────────────────────────────────────────────────────
 
-The core engine is **AGPL-3.0**. Run it yourself, audit it, fork it, build on it.
+# ```
 
-**RunCost Pro** (coming soon): team dashboards · multi-project tracking · SSO · compliance exports · Slack/Discord alerts · SLA support
+# 
 
----
+# \*\*RunCost intercepts every LLM call and:\*\*
 
-## Why This Exists
+# 
 
-Multi-agent AI frameworks are powerful. But none of them ship with cost controls. RunCost is the layer that should have existed from day one -- built in public, open source, free to use.
+# \- Estimates the cost \*before\* spending a dollar
 
+# \- Routes simple tasks to cheap models (Groq, Llama 3, Mistral) automatically
 
----
+# \- Routes reasoning-heavy tasks to GPT-4o or Claude only when needed
 
-## License
+# \- Detects recursive loops and kills them before they drain your account
 
-**AGPL-3.0** -- free for individuals and open source projects.
+# \- Enforces hard spending limits — when you hit your cap, everything stops
 
-Commercial license available for enterprise deployments.
+# \- Logs every call to a local SQLite database
 
----
+# \- Shows a live terminal dashboard of spend vs. savings in real time
+
+# 
+
+# \---
+
+# 
+
+# \## The Numbers
+
+# 
+
+# > Same simulation. Same output quality. 10x cheaper.
+
+# 
+
+# | Workload | Without RunCost | With RunCost | Saved |
+
+# |---|---|---|---|
+
+# | 1,000-agent simulation | \~$180-$200 | \*\*\~$2-$4\*\* | \~98% |
+
+# | 500-agent CrewAI workflow | \~$40-$80 | \*\*\~$4-$8\*\* | \~90% |
+
+# | AutoGen research pipeline | \~$15-$20 | \*\*\~$1-$2\*\* | \~90% |
+
+# | Recursive loop (caught) | $200+ | \*\*$0.00\*\* | 100% |
+
+# 
+
+# \---
+
+# 
+
+# \## Install
+
+# 
+
+# ```bash
+
+# pip install runcost
+
+# ```
+
+# 
+
+# \*\*Supported frameworks:\*\* OpenAI SDK · CrewAI · LangGraph · AutoGen · LangChain · MiroFish · any OpenAI-compatible client
+
+# 
+
+# \---
+
+# 
+
+# \## Quick Start
+
+# 
+
+# ```python
+
+# from runcost import OpenAI, BudgetConfig
+
+# 
+
+# config = BudgetConfig(
+
+# &#x20;   hard\_limit\_usd=5.00,     # Hard stop — never exceed this per run
+
+# &#x20;   warn\_at\_usd=2.00,        # Alert when approaching limit
+
+# &#x20;   auto\_route=True,          # Auto-route cheap tasks to Llama/Groq
+
+# &#x20;   block\_loops=True,         # Kill recursive agent loops instantly
+
+# &#x20;   log\_to\_db=True            # Save full history to runcost.db
+
+# )
+
+# 
+
+# client = OpenAI(budget=config)
+
+# 
+
+# \# Use exactly as normal — RunCost works silently underneath
+
+# response = client.chat.completions.create(
+
+# &#x20;   model="gpt-4o",
+
+# &#x20;   messages=\[{"role": "user", "content": "Analyze these 500 documents"}]
+
+# )
+
+# ```
+
+# 
+
+# \---
+
+# 
+
+# \## How Routing Works
+
+# 
+
+# RunCost classifies each call by complexity \*before\* sending it:
+
+# 
+
+# | Complexity | Model Used | Typical Cost |
+
+# |---|---|---|
+
+# | Simple: formatting, lookup, summarization | Groq Llama-3 8B | \~$0.001 |
+
+# | Medium: research, extraction, classification | Mistral 7B | \~$0.002 |
+
+# | Complex: reasoning, code, multi-step logic | GPT-4o / Claude | \~$0.04–0.09 |
+
+# | Detected loop / budget exceeded | \*\*BLOCKED\*\* | $0.000 |
+
+# 
+
+# You can override routing per agent, per task type, or per model preference.
+
+# 
+
+# \---
+
+# 
+
+# \## The Dashboard
+
+# 
+
+# ```bash
+
+# runcost dashboard
+
+# ```
+
+# 
+
+# Opens a live terminal view showing real-time spend, savings, active agents, blocked loops, and full call history. Dark mode. No browser required.
+
+# 
+
+# 
+
+# \---
+
+# 
+
+# \## Why Open Source?
+
+# 
+
+# Because every developer deserves to see exactly what their agents are spending — before it's too late.
+
+# 
+
+# The core engine is \*\*AGPL-3.0\*\*. Run it yourself, audit it, fork it, build on it.
+
+# 
+
+# \*\*RunCost Pro\*\* (coming soon): team dashboards · multi-project tracking · SSO · compliance exports · Slack/Discord alerts · SLA support
+
+# 
+
+# \---
+
+# 
+
+# \## Roadmap
+
+# 
+
+# ✅ OpenAI SDK wrapper
+
+# ✅ Real-time cost tracking per call
+
+# ✅ Hard budget limits with BudgetExceededError
+
+# ✅ SQLite call logging
+
+# ✅ Terminal dashboard (runcost dashboard)
+
+# ✅ Web dashboard (runcost server)
+
+# ✅ Pre-flight cost calculator
+
+# ✅ DeepSeek support
+
+# ✅ Grok / xAI support
+
+# ✅ Auto-routing (automatic cheap model selection)
+
+# ✅ Recursive loop detection
+
+# ✅ Slack / Discord spend alerts
+
+# 🔜 Claude (Anthropic SDK) support
+
+# 🔜 Gemini (Google SDK) support
+
+# 🔜 CrewAI native plugin
+
+# 🔜 LangGraph native plugin
+
+# 
+
+# 🔜 AgentLedger — audit trail for every agent action
+
+# 
+
+# \---
+
+# 
+
+# If RunCost saved you money, a ⭐ on GitHub costs nothing and means everything.
+
+# 
+
+# \---
+
+# 
+
+# \## License
+
+# 
+
+# \*\*AGPL-3.0\*\* — free for individuals and open source projects.
+
+# 
+
+# Commercial license available for enterprise deployments.
+
+# 
+
+# \---
+
+# 
+
 
 
