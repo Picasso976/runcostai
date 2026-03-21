@@ -153,22 +153,23 @@ The core engine is **AGPL-3.0**. Run it yourself, audit it, fork it, build on it
 
 ## Roadmap
 
-| Status | Feature |
-|--------|---------|
-| ✅ | OpenAI SDK wrapper |
-| ✅ | Groq / Llama-3 auto-routing |
-| ✅ | Recursive loop detection |
-| ✅ | Hard budget limits |
-| ✅ | SQLite call logging |
-| ✅ | Live terminal dashboard |
-| 🔜 | Web dashboard (v0.3) |
-| 🔜 | CrewAI native plugin |
-| 🔜 | LangGraph native plugin |
-| 🔜 | MiroFish native plugin |
-| 🔜 | Pre-flight cost estimator |
-| 🔜 | Slack / Discord spend alerts |
-| 🔜 | Team spend analytics |
-| 🔜 | AgentLedger plugin — audit trail for every agent action |
+✅ OpenAI SDK wrapper
+✅ Real-time cost tracking per call
+✅ Hard budget limits with BudgetExceededError
+✅ SQLite call logging
+✅ Terminal dashboard (runcost dashboard)
+✅ Web dashboard (runcost server)
+✅ Pre-flight cost calculator
+✅ DeepSeek support
+✅ Grok / xAI support
+✅ Auto-routing (automatic cheap model selection)
+✅ Recursive loop detection
+🔜 Claude (Anthropic SDK) support
+🔜 Gemini (Google SDK) support
+🔜 CrewAI native plugin
+🔜 LangGraph native plugin
+✅ Slack / Discord spend alerts
+🔜 AgentLedger — audit trail for every agent action
 
 ---
 
