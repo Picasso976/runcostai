@@ -169,12 +169,11 @@ The core engine is **AGPL-3.0**. Run it yourself, audit it, fork it, build on it
 🔜 Gemini (Google SDK) support
 🔜 CrewAI native plugin
 🔜 LangGraph native plugin
-
 🔜 AgentLedger — audit trail for every agent action
 
 ---
 
-If RunCost saved you money, a ⭐ on GitHub costs nothing and means everything.
+## If RunCost saved you money, a ⭐ on GitHub costs nothing and means everything.
 
 ---
 
